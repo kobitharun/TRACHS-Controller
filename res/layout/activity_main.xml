@@ -2,15 +2,165 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_flat_WetAshphalt"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/static_lbl_trachs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/lbl_trachs"
+            android:textAlignment="center"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/color_flat_Pumpkin" />
+
+        <TextView
+            android:id="@+id/static_lbl_currentTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Current Temp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/dynamic_disp_currentTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="25.0"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/color_flat_Alizarin" />
+
+        <TextView
+            android:id="@+id/static_lbl_setTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set Seat Temp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/btn_tempDown"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="&lt;" />
+
+            <TextView
+                android:id="@+id/dynamic_disp_setTemp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="26.0"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/color_flat_Alizarin" />
+
+            <Button
+                android:id="@+id/btn_tempUP"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=">" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_setSetpoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set Temperature" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/btn_modeAuto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AUTO" />
+
+            <Button
+                android:id="@+id/btn_modeHot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HOT" />
+
+            <Button
+                android:id="@+id/btn_modeCold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="COLD" />
+
+            <Button
+                android:id="@+id/btn_modeOff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/static_lbl_seatID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seat ID"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/dynamic_lbl_seatID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Driver"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/color_flat_Alizarin" />
+
+            <Button
+                android:id="@+id/btn_changeSeat"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CHANGE" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/static_lbl_seatStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seat Status: "
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/dynamc_lbl_seatStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Connected"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/color_flat_Alizarin" />
+
+            <Button
+                android:id="@+id/btn_disconnectSeat"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Disconnect" />
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>

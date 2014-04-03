@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="color_flat_PeterRiver">#3498db</color>
+    <color name="color_flat_Alizarin">#e74c3c</color>
+    <color name="color_flat_Pumpkin">#d35400</color>
+    <color name="color_flat_Nephritis">#27ae60</color>
+    <color name="color_flat_GreenSea">#16a085</color>
+    <color name="color_flat_Turquoise">#1abc9c</color>
+    <color name="color_flat_Pomegranate">#c0392b</color>
+    <color name="color_flat_Clouds">#ecf0f1</color>
+    <color name="color_flat_MidnightBlue">#2c3e50</color>
+    <color name="color_flat_WetAshphalt">#34495e</color>
+    <color name="color_flat_Concrete">#95a5a6</color>
+    <color name="color_flat_Asbestos">#7f8c8d</color>
+    <color name="color_flat_Carrot">#e67e22</color>
+    <color name="color_flat_Amethyst">#9b59b6</color>
+    <color name="color_flat_Wisteria">#8e44ad</color>
+    <color name="color_flat_Emerald">#2ecc71</color>
+    <color name="color_flat_SunFlower">#f1c40f</color>
+    <color name="color_flat_Orange">#f39c12</color>
+    <color name="color_flat_BelizeHole">#2980b9</color>
+
+</resources>
