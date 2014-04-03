@@ -2,14 +2,70 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
+    </style>
+
+    <style name="style_txt_Header" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/color_flat_Clouds</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="style_txt_Header.Left">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:gravity">left</item>
+    </style>
+
+    <style name="style_txt_Header.Left.Normal">
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="style_txt_Temp" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">@color/color_flat_Emerald</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="style_txt_Temp.Big">
+        <item name="android:textColor">@color/color_flat_Emerald</item>
+        <item name="android:textSize">100dp</item>
+    </style>
+
+    <style name="style_txt_Temp.Small">
+        <item name="android:textColor">@color/color_flat_Alizarin</item>
+        <item name="android:textSize">30dp</item>
+    </style>
+
+    <style name="style_btn_FlatUI">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@color/color_flat_Pumpkin</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textColor">@color/color_flat_Clouds</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="style_btn_FlatUI.Small">
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="style_btn_whiteFont">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/color_flat_Clouds</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <!-- Application theme. -->

@@ -19,7 +19,6 @@ public class MainActivity extends BlunoLibrary {
 	private Button btn_tempUp;
 	private Button btn_tempDown;
 	private Button btn_btConnect;
-	private Button btn_btChange;
 	private Button btn_modeAuto;
 	private Button btn_modeHot;
 	private Button btn_modeCold;
@@ -41,10 +40,9 @@ public class MainActivity extends BlunoLibrary {
 		
 		serialBegin(115200);  //set the Uart Baudrate on BLE chip to 115200
 		btn_setSetpoint = (Button) findViewById(R.id.btn_setSetpoint);
-		btn_tempUp = (Button) findViewById(R.id.btn_tempUP);
+		btn_tempUp = (Button) findViewById(R.id.btn_tempUp);
 		btn_tempDown = (Button) findViewById(R.id.btn_tempDown);
 		btn_btConnect = (Button) findViewById(R.id.btn_disconnectSeat);
-		btn_btChange = (Button) findViewById(R.id.btn_changeSeat);
 		btn_modeAuto = (Button) findViewById(R.id.btn_modeAuto);
 		btn_modeCold = (Button) findViewById(R.id.btn_modeCold);
 		btn_modeHot = (Button) findViewById(R.id.btn_modeHot);
@@ -52,8 +50,7 @@ public class MainActivity extends BlunoLibrary {
 		
 		
 		lbl_dynamic_currentTemp = (TextView) findViewById(R.id.dynamic_disp_currentTemp);
-		lbl_dynamic_setTemp = (TextView) findViewById(R.id.dynamic_disp_setTemp);
-		lbl_dynamic_seatID = (TextView) findViewById(R.id.dynamic_lbl_seatID);
+		lbl_dynamic_setTemp = (TextView) findViewById(R.id.dyn_disp_setTemp);
 		lbl_dynamic_seatStatus = (TextView) findViewById(R.id.dynamc_lbl_seatStatus);
 		
 		/**************** Button Listeners *****************/
@@ -63,7 +60,8 @@ btn_setSetpoint.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 
-				//serialSend(serialSendText.getText().toString());										//Alert Dialog for selecting the BLE device
+				setTargetTemp(Integer.parseInt(lbl_dynamic_setTemp.getText().toString()));	
+			
 			}
 		});
 
@@ -73,8 +71,8 @@ btn_tempUp.setOnClickListener(new OnClickListener() {
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 
-		buttonScanOnClickProcess();										//Alert Dialog for selecting the BLE device
-	}
+		changeSetTemp("UP");
+		}
 });
 
 btn_tempDown.setOnClickListener(new OnClickListener() {
@@ -83,8 +81,8 @@ btn_tempDown.setOnClickListener(new OnClickListener() {
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 
-		buttonScanOnClickProcess();										//Alert Dialog for selecting the BLE device
-	}
+		changeSetTemp("DOWN");
+		}
 });
 
 btn_btConnect.setOnClickListener(new OnClickListener() {
@@ -97,15 +95,6 @@ btn_btConnect.setOnClickListener(new OnClickListener() {
 	}
 });
 
-btn_btChange.setOnClickListener(new OnClickListener() {
-	
-	@Override
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-
-		buttonScanOnClickProcess();										//Alert Dialog for selecting the BLE device
-	}
-});
 
 btn_modeAuto.setOnClickListener(new OnClickListener() {
 	
@@ -221,6 +210,44 @@ btn_modeOff.setOnClickListener(new OnClickListener() {
 		
 	}
 
+	public void changeSetTemp(String direction)
+	{
+		int temp = Integer.parseInt(lbl_dynamic_setTemp.getText().toString());
+		
+		if (direction == "UP")
+		{
+			
+			if(temp <= R.integer.temp_set_max)
+			{
+				temp++;
+			}
+			else {
+				
+			}	
+		}
+		else if (direction == "DOWN")
+		{
+			if(temp >= R.integer.temp_set_min)
+			{
+				temp--;
+			}
+			else {
+				
+			}
+			
+		}
+		
+		lbl_dynamic_setTemp.setText(String.valueOf(temp));
+	}
+	
+	
+	public void setTargetTemp(int temp)
+	{
+		
+		String sendString = "f"+String.valueOf(temp)+"/n";
+		serialSend(sendString);
+	}
+	
 	public void setControllerMode(String function)
 	{
 		String sendString = "";
