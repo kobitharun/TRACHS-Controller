@@ -231,50 +231,58 @@ btn_modeOff.setOnClickListener(new OnClickListener() {
 		
 		
 		if(dataString != null){
-			
+			try {
 			String commandString = dataString.substring(dataString.indexOf("<") + 1);
 			
 			commandString = commandString.substring(0, commandString.indexOf(">"));
 			
 			
-			if(commandString.contains("update"))
-			{
-				String valueString = dataString.substring(dataString.indexOf(">") + 1);
-				valueString = valueString.substring(0, valueString.indexOf(";"));
+				if(commandString.contains("update"))
+				{
+					String valueString = dataString.substring(dataString.indexOf(">") + 1);
+					valueString = valueString.substring(0, valueString.indexOf(";"));
 
-				String[] updateValuesStrings = valueString.split(",");
-				int update_currentTemp = Integer.parseInt(updateValuesStrings[0]);
-				float update_currentTemp2 = update_currentTemp/10;
-				
-				lbl_dynamic_currentTemp.setText(String.valueOf(update_currentTemp2));
-				
-				
-				//********* Update Mode Button ***********//
-				String mode = "OFF";
-				int modeValue = Integer.parseInt(updateValuesStrings[1]);
-				
-				
-				if(modeValue == 1)
-				{
-					mode = "AUTO";
+					String[] updateValuesStrings = valueString.split(",");
+					int update_currentTemp = Integer.parseInt(updateValuesStrings[0]);
+					float update_currentTemp2 = update_currentTemp/10;
+					
+					lbl_dynamic_currentTemp.setText(String.valueOf(update_currentTemp2));
+					
+					
+					int update_targetTemp = Integer.parseInt(updateValuesStrings[1]);
+					
+					lbl_dynamic_setTemp.setText(String.valueOf(update_targetTemp));
+					
+					//********* Update Mode Button ***********//
+					String mode = "OFF";
+					int modeValue = Integer.parseInt(updateValuesStrings[2]);
+					
+					
+					if(modeValue == 1)
+					{
+						mode = "AUTO";
+					}
+					else if (modeValue == 2)
+					{
+						mode = "OFF";
+					}
+					else if (modeValue == 3)
+					{
+						mode = "HOT";
+					}
+					else if (modeValue == 4)
+					{
+						mode = "COLD";
+					}
+					setModeRadio(mode);
 				}
-				else if (modeValue == 2)
+				else if (commandString =="")
 				{
-					mode = "OFF";
+					
 				}
-				else if (modeValue == 3)
-				{
-					mode = "HOT";
-				}
-				else if (modeValue == 4)
-				{
-					mode = "COLD";
-				}
-				setModeRadio(mode);
-			}
-			else if (commandString =="")
-			{
 				
+			} catch (Exception e) {
+				// TODO: handle exception
 			}
 			
 		}
@@ -312,7 +320,6 @@ btn_modeOff.setOnClickListener(new OnClickListener() {
 	public void setTargetTemp(int temp)
 	{
 		String sendString = "f"+temp;
-		lbl_dynamic_currentTemp.setText(sendString);
 		serialSend(sendString);
 	}
 	
