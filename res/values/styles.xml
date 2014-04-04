@@ -2,13 +2,13 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
@@ -45,6 +45,16 @@
     <style name="style_txt_Temp.Small">
         <item name="android:textColor">@color/color_flat_Alizarin</item>
         <item name="android:textSize">30dp</item>
+    </style>
+
+    <style name="style_txt_Temp.Small.NoEdit">
+        <item name="android:textColor">@color/color_flat_Alizarin</item>
+        <item name="android:textSize">30dp</item>
+        <item name="android:clickable">false</item>
+        <item name="android:editable">false</item>
+        <item name="android:inputType">number</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:gravity">center</item>
     </style>
 
     <style name="style_btn_FlatUI">

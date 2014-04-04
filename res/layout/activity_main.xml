@@ -77,12 +77,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:clickable="false"
-                android:editable="false"
-                android:ems="10"
+                android:enabled="false"
                 android:gravity="center"
-                android:inputType="number"
-                android:singleLine="true"
                 android:text="25" />
 
             <Button
@@ -98,15 +94,67 @@
             android:layout_width="match_parent"
             android:text="Set Temperature" />
 
-        <Space
+        <RadioGroup
+            android:id="@+id/radioGroup1"
             android:layout_width="match_parent"
-            android:layout_height="30dp" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:gravity="center"
+            android:longClickable="false"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/btn_radio_auto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:longClickable="false"
+                android:text="          " />
+
+            <RadioButton
+                android:id="@+id/btn_radio_hot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:longClickable="false"
+                android:text="         " />
+
+            <RadioButton
+                android:id="@+id/btn_radio_cold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:longClickable="false"
+                android:text="        " />
+
+            <RadioButton
+                android:id="@+id/btn_radio_off"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:longClickable="false" />
+        </RadioGroup>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="fill"
-            android:gravity="center" >
+            android:gravity="center"
+            android:orientation="horizontal" >
 
             <Button
                 android:id="@+id/btn_modeAuto"

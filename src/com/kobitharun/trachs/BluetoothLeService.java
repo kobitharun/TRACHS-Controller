@@ -18,6 +18,7 @@ package com.kobitharun.trachs;
 
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothClass.Device;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCallback;
@@ -98,7 +99,7 @@ public class BluetoothLeService extends Service {
                 intentAction = ACTION_GATT_CONNECTED;
                 mConnectionState = STATE_CONNECTED;
                 broadcastUpdate(intentAction);
-                Log.i(TAG, "Connected to GATT server.");
+                 Log.i(TAG, "Connected to GATT server.");
                 // Attempts to discover services after successful connection.
                 if(mBluetoothGatt.discoverServices())
                 {
@@ -404,10 +405,14 @@ public class BluetoothLeService extends Service {
 //        }
 
         final BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
+        
         if (device == null) {
             Log.w(TAG, "Device not found.  Unable to connect.");
+            MainActivity.deviceName =""; //*******************************************************added to keep track of device name
             return false;
         }
+        MainActivity.deviceName =device.getName(); //*******************************************************added to keep track of device name
+        
         // We want to directly connect to the device, so we are setting the autoConnect
         // parameter to false.
         System.out.println("device.connectGatt connect");

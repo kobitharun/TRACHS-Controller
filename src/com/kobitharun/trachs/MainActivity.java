@@ -1,17 +1,23 @@
 package com.kobitharun.trachs;
 
+import java.nio.ByteBuffer;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 import android.os.Bundle;
 import android.app.Activity;
+import android.bluetooth.BluetoothClass.Device;
 import android.content.Intent;
 import android.view.Menu;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import com.kobitharun.trachs.MainHelper;
+import com.kobitharun.trachs.R.integer;
 
 public class MainActivity extends BlunoLibrary {
 	
@@ -24,12 +30,17 @@ public class MainActivity extends BlunoLibrary {
 	private Button btn_modeCold;
 	private Button btn_modeOff;
 	private Button btn_setSetpoint;
-	
+	private RadioButton radio_autoButton;
+	private RadioButton radio_hotButton;
+	private RadioButton radio_coldButton;
+	private RadioButton radio_offButton;
 	
 	private TextView lbl_dynamic_currentTemp;
 	private TextView lbl_dynamic_setTemp;
 	private TextView lbl_dynamic_seatID;
 	private TextView lbl_dynamic_seatStatus;
+	
+	public static String deviceName="";
 	
 	
 	@Override
@@ -47,7 +58,10 @@ public class MainActivity extends BlunoLibrary {
 		btn_modeCold = (Button) findViewById(R.id.btn_modeCold);
 		btn_modeHot = (Button) findViewById(R.id.btn_modeHot);
 		btn_modeOff = (Button) findViewById(R.id.btn_modeOff);
-		
+		radio_autoButton = (RadioButton) findViewById(R.id.btn_radio_auto);
+		radio_hotButton = (RadioButton) findViewById(R.id.btn_radio_hot);
+		radio_coldButton = (RadioButton) findViewById(R.id.btn_radio_cold);
+		radio_offButton = (RadioButton) findViewById(R.id.btn_radio_off);
 		
 		lbl_dynamic_currentTemp = (TextView) findViewById(R.id.dynamic_disp_currentTemp);
 		lbl_dynamic_setTemp = (TextView) findViewById(R.id.dyn_disp_setTemp);
@@ -123,7 +137,7 @@ btn_modeHot.setOnClickListener(new OnClickListener() {
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-
+		
 		setControllerMode("HOT");
 		}
 });
@@ -177,7 +191,7 @@ btn_modeOff.setOnClickListener(new OnClickListener() {
 		switch (theConnectionState) {											//Four connection state
 		case isConnected:
 			
-			lbl_dynamic_seatStatus.setText("Connected");
+			lbl_dynamic_seatStatus.setText(deviceName+ " connected");
 			btn_btConnect.setText("Disconnect");
 			break;
 		case isConnecting:
@@ -205,11 +219,70 @@ btn_modeOff.setOnClickListener(new OnClickListener() {
 		// TODO Auto-generated method stub
 		//serialReceivedText.append(theString);							//append the text into the EditText
 		//The Serial data from the BLUNO may be sub-packaged, so using a buffer to hold the String is a good choice.
-	
+		
+		processAndroidData(theString);
+
 		//************** INSERT JSON CODE ******************//
 		
 	}
 
+	public void processAndroidData(String dataString)
+	{
+		
+		
+		if(dataString != null){
+			
+			String commandString = dataString.substring(dataString.indexOf("<") + 1);
+			
+			commandString = commandString.substring(0, commandString.indexOf(">"));
+			
+			
+			if(commandString.contains("update"))
+			{
+				String valueString = dataString.substring(dataString.indexOf(">") + 1);
+				valueString = valueString.substring(0, valueString.indexOf(";"));
+
+				String[] updateValuesStrings = valueString.split(",");
+				int update_currentTemp = Integer.parseInt(updateValuesStrings[0]);
+				float update_currentTemp2 = update_currentTemp/10;
+				
+				lbl_dynamic_currentTemp.setText(String.valueOf(update_currentTemp2));
+				
+				
+				//********* Update Mode Button ***********//
+				String mode = "OFF";
+				int modeValue = Integer.parseInt(updateValuesStrings[1]);
+				
+				
+				if(modeValue == 1)
+				{
+					mode = "AUTO";
+				}
+				else if (modeValue == 2)
+				{
+					mode = "OFF";
+				}
+				else if (modeValue == 3)
+				{
+					mode = "HOT";
+				}
+				else if (modeValue == 4)
+				{
+					mode = "COLD";
+				}
+				setModeRadio(mode);
+			}
+			else if (commandString =="")
+			{
+				
+			}
+			
+		}
+		
+		
+		
+	}
+	
 	public void changeSetTemp(String direction)
 	{
 		int temp = Integer.parseInt(lbl_dynamic_setTemp.getText().toString());
@@ -217,22 +290,17 @@ btn_modeOff.setOnClickListener(new OnClickListener() {
 		if (direction == "UP")
 		{
 			
-			if(temp <= R.integer.temp_set_max)
+			if(temp < 40)
 			{
 				temp++;
 			}
-			else {
-				
-			}	
+
 		}
 		else if (direction == "DOWN")
 		{
-			if(temp >= R.integer.temp_set_min)
+			if(temp > 15)
 			{
 				temp--;
-			}
-			else {
-				
 			}
 			
 		}
@@ -243,9 +311,30 @@ btn_modeOff.setOnClickListener(new OnClickListener() {
 	
 	public void setTargetTemp(int temp)
 	{
-		
-		String sendString = "f"+String.valueOf(temp)+"/n";
+		String sendString = "f"+temp;
+		lbl_dynamic_currentTemp.setText(sendString);
 		serialSend(sendString);
+	}
+	
+	
+	public void setModeRadio(String mode)
+	{
+		if(mode == "AUTO")
+		{
+			radio_autoButton.setChecked(true);
+		}
+		else if (mode == "OFF")
+		{
+			radio_offButton.setChecked(true);
+		}
+		else if (mode == "HOT")
+		{
+			radio_hotButton.setChecked(true);
+		}
+		else if (mode == "COLD")
+		{
+			radio_coldButton.setChecked(true);
+		}	
 	}
 	
 	public void setControllerMode(String function)
@@ -261,13 +350,13 @@ btn_modeOff.setOnClickListener(new OnClickListener() {
 		}
 		else if (function == "HOT")
 		{
-
 			sendString="mH/n";
 		}
 		else if (function == "COLD")
 		{
 			sendString="mC/n";
 		}
+		setModeRadio(function);
 		serialSend(sendString);
 		
 	}
