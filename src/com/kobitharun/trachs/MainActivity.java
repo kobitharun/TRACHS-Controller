@@ -276,9 +276,9 @@ btn_modeOff.setOnClickListener(new OnClickListener() {
 					}
 					setModeRadio(mode);
 				}
-				else if (commandString =="")
+				else if (commandString.contains("ack"))
 				{
-					
+					//write code for serial communication acknowledgement
 				}
 				
 			} catch (Exception e) {
@@ -350,32 +350,26 @@ btn_modeOff.setOnClickListener(new OnClickListener() {
 		
 		String commandString = "target_mode";
 
-		int[] modeData = {0,0};
+		int[] modeData = {0};
 		
 		if(function == "AUTO")
 		{
-			modeData[0] = 25;
-			modeData[1] = 1;
+			modeData[0] = 1;
 		}
-		
 		else if (function == "OFF")
 		{
-			modeData[0]=00;
-			modeData[1]=2;
+			modeData[0]=2;
 		}
 		else if (function == "HOT")
 		{
-			modeData[0]=35;
-			modeData[1]=3;
+			modeData[0]=3;
 		}
 		else if (function == "COLD")
 		{
-			modeData[0]=15;
-			modeData[1]=4;
+			modeData[0]=4;
 		}
 		setModeRadio(function);
 		sendToController(commandString, modeData);
-		
 	}
 	
 	
@@ -397,30 +391,6 @@ btn_modeOff.setOnClickListener(new OnClickListener() {
 		{
 			radio_coldButton.setChecked(true);
 		}	
-	}
-	
-	public void setControllerMode(String function)
-	{
-		String sendString = "";
-		if(function == "AUTO")
-		{
-			  sendString="mA/n";
-		}
-		else if (function == "OFF")
-		{
-			sendString="mO/n";
-		}
-		else if (function == "HOT")
-		{
-			sendString="mH/n";
-		}
-		else if (function == "COLD")
-		{
-			sendString="mC/n";
-		}
-		setModeRadio(function);
-		serialSend(sendString);
-		
 	}
 	
 }
