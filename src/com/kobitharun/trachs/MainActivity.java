@@ -116,7 +116,7 @@ btn_modeAuto.setOnClickListener(new OnClickListener() {
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 
-		setControllerMode("AUTO");
+		setSystemMode("AUTO");
 	
 	}
 });
@@ -128,7 +128,7 @@ btn_modeCold.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 
-				setControllerMode("COLD");
+				setSystemMode("COLD");
 				}
 		});
 		
@@ -138,7 +138,7 @@ btn_modeHot.setOnClickListener(new OnClickListener() {
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		
-		setControllerMode("HOT");
+		setSystemMode("HOT");
 		}
 });
 
@@ -148,7 +148,7 @@ btn_modeOff.setOnClickListener(new OnClickListener() {
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 
-		setControllerMode("OFF");
+		setSystemMode("OFF");
 		}
 });
 
@@ -243,10 +243,10 @@ btn_modeOff.setOnClickListener(new OnClickListener() {
 					valueString = valueString.substring(0, valueString.indexOf(";"));
 
 					String[] updateValuesStrings = valueString.split(",");
-					int update_currentTemp = Integer.parseInt(updateValuesStrings[0]);
-					float update_currentTemp2 = update_currentTemp/10;
+					float update_currentTemp = Float.valueOf(updateValuesStrings[0])/10;
+				
 					
-					lbl_dynamic_currentTemp.setText(String.valueOf(update_currentTemp2));
+					lbl_dynamic_currentTemp.setText(String.valueOf(update_currentTemp));
 					
 					
 					int update_targetTemp = Integer.parseInt(updateValuesStrings[1]);
@@ -319,8 +319,63 @@ btn_modeOff.setOnClickListener(new OnClickListener() {
 	
 	public void setTargetTemp(int temp)
 	{
-		String sendString = "f"+temp;
+		String commandString = "target_temp";
+		int[] tempData = {temp};
+
+		sendToController(commandString, tempData);
+	}
+	
+	public void getSystemUpdate()
+	{
+		String commandString = "get_update";
+		int[] tempData = {0};
+
+		sendToController(commandString, tempData);
+	}
+	
+	public void sendToController(String command, int[] data)
+	{
+		String sendString = "<"+command+">";
+
+		for (int i = 0; i < data.length; i++) {
+			sendString = sendString+ data[i] +",";
+		}
+		sendString = sendString.substring(0, (sendString.length()-1)) + ";";
 		serialSend(sendString);
+	}
+	
+	
+	public void setSystemMode(String function)
+	{
+		
+		String commandString = "target_mode";
+
+		int[] modeData = {0,0};
+		
+		if(function == "AUTO")
+		{
+			modeData[0] = 25;
+			modeData[1] = 1;
+		}
+		
+		else if (function == "OFF")
+		{
+			modeData[0]=00;
+			modeData[1]=2;
+		}
+		else if (function == "HOT")
+		{
+			modeData[0]=35;
+			modeData[1]=3;
+		}
+		else if (function == "COLD")
+		{
+			modeData[0]=15;
+			modeData[1]=4;
+		}
+		setModeRadio(function);
+		sendToController(commandString, modeData);
+		
 	}
 	
 	
