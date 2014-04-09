@@ -279,6 +279,20 @@ btn_modeOff.setOnClickListener(new OnClickListener() {
 				else if (commandString.contains("ack"))
 				{
 					//write code for serial communication acknowledgement
+					String valueString = dataString.substring(dataString.indexOf(">") + 1);
+					valueString = valueString.substring(0, valueString.indexOf(";"));
+
+					String[] updateValuesStrings = valueString.split(",");
+					int ackVal = Integer.parseInt(updateValuesStrings[0]);
+					
+					if (ackVal == 0)
+					{
+						lbl_dynamic_currentTemp.setText("TRY AGAIN");
+					}
+					else if (ackVal == 1)
+					{
+						lbl_dynamic_currentTemp.setText("OK");
+					}
 				}
 				
 			} catch (Exception e) {
